@@ -1,32 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const Appointment = require('../models/');
+const Doctors = require('../models/');
 
-// Create an appointment
+// Create an Doctor
 router.post('/', async (req, res) => {
-   const { firstname, lastname, barber, service,datetime } = req.body;
+
+   const { firstname,
+      lastname,
+      title,
+      Specialization,
+      specialty,
+      service,
+   } = req.body;
 
    try {
-      const newAppointment = new Appointment({
+      const newDoctor = new Doctors({
          firstname,
          lastname,
-         datetime,
-         barber,
+         title,
+         Specialization,
+         specialty,
          service,
       });
 
-      const appointment = await newAppointment.save();
-      res.status(201).json(appointment);
+      const doctor = await newDoctor.save();
+      res.status(201).json(doctor);
    } catch (err) {
       res.status(500).json({ message: err.message });
    }
 });
 
-// Get all appointments
+// Get all Doctors
 router.get('/', async (req, res) => {
    try {
-      const appointments = await Appointment.find();
-      res.json(appointments);
+      const Doctors = await Doctors.find();
+      res.json(Doctors);
    } catch (err) {
       res.status(500).json({ message: err.message });
    }
