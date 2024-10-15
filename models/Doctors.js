@@ -14,7 +14,7 @@ const Doctors = new mongoose.Schema({
       enum: ['DO', 'MD'],
       required: true,
    },
-   Specialization: {
+   specialization: {
       type: String,
       enum: ['Primary Care Doctor', 'Internist', 'Surgeon'],
       required: true,

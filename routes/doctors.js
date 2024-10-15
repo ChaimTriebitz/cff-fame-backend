@@ -5,10 +5,11 @@ const Doctors = require('../models/Doctors');
 // Create an Doctor
 router.post('/', async (req, res) => {
 
-   const { firstname,
+   const {
+      firstname,
       lastname,
       title,
-      Specialization,
+      specialization,
       specialty,
       service,
    } = req.body;
@@ -18,7 +19,7 @@ router.post('/', async (req, res) => {
          firstname,
          lastname,
          title,
-         Specialization,
+         specialization,
          specialty,
          service,
       });
