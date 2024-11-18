@@ -1,44 +1,17 @@
-const express = require('express');
-const router = express.Router();
-const Doctors = require('../models/Doctors');
+const express = require('express')
+const router = express.Router()
+const { get, createMany, create, update, remove } = require('../controllers/doctors')
+const { protect } = require('../middleware/auth')
 
+router.route('/').get(protect, get)
 
-router.post('/', async (req, res) => {
+router.route('/createMany').post(protect, createMany)
 
-   const {
-      firstname,
-      lastname,
-      title,
-      specialization,
-      specialty,
-      service,
-   } = req.body;
+router.route('/create').post(protect, create)
 
-   try {
-      const newDoctor = new Doctors({
-         firstname,
-         lastname,
-         title,
-         specialization,
-         specialty,
-         service,
-      });
+router.route('/:id').put(protect, update)
 
-      const doctor = await newDoctor.save();
-      res.status(201).json(doctor);
-   } catch (err) {
-      res.status(500).json({ message: err.message });
-   }
-});
+router.route('/:id').delete(protect, remove)
 
-// Get all Doctors
-router.get('/', async (req, res) => {
-   try {
-      const Doctors = await Doctors.find();
-      res.json(Doctors);
-   } catch (err) {
-      res.status(500).json({ message: err.message });
-   }
-});
+module.exports = router
 
-module.exports = router;
